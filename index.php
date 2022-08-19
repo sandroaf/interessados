@@ -21,10 +21,16 @@ function option_estados() {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/estilo.css">
     <title>Cadastro de Interessados - NewsLetter - DEVs-TI</title>
 </head>
 <body>
     <h1>INTERESSADOS - NewsLetter - DEVs-TI</h1>
+    <div>
+        <a href="listar_interessados.php">Listar</a>
+    </div>     
+    <br>
+    <h2 id="cadastro">Cadastro</h2>
     <br>
     <div id="dMsg"></div> <!-- Área para Mensagens de Validação -->
     <br>
