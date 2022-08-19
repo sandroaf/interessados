@@ -69,6 +69,13 @@ if (isset($_POST['bGravar'])) {
 ?>
 <br>
 <!-- Volta a página de cadastro -->
-<input type="button" value="voltar" onclick="JavaScript:history.back();">
-<html>
+<input type="button" value="voltar" onclick="JavaScript:location.assign('/interessados');window.clearTimeout();">
+</body>
+<script language="JavaScript">
+    setTimeout(() => {
+        location.assign("/interessados");        
+    }, 5000);
+</script>
+
+</html>
 

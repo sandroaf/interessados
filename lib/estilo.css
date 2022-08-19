@@ -1,5 +1,16 @@
 table,tr,td{
     border:1px solid darkblue;
     padding:5px;
-    
+}
+
+input {
+    background-color: rgb(176, 175, 175);
+}
+
+form input {
+    background-color: white;
+}
+
+input.altera {
+    background-color: white;
 }
