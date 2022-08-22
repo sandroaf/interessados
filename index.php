@@ -66,15 +66,15 @@ function lista_interessados() {
         $.get(acao, function(dados, status) {
         //alert(dados);
            if (status == "success") {
-               $("#"+valor.id).attr("readonly");
+               $("#"+valor.id).attr("readonly","");
                $("#"+valor.id).removeAttr("class");
           }
         });  
       });
 
-      //Au sair do Input retorna as propriedades
+      //Ao sair do Input retorna as propriedades
       $("#"+valor.id).blur( function() { 
-            $("#"+valor.id).attr("readonly");
+            $("#"+valor.id).attr("readonly","");
             $("#"+valor.id).removeAttr("class");
         });
 
