@@ -1,5 +1,7 @@
 <?php
 require_once('lib/conexao.php');
+include_once('lib/funcoes-interessados.php');
+
 echo "<script>alert(".$_GET["campo"].")</script>";
 if ($_GET["campo"]=="n") {
     $sql = "UPDATE interessados set nome=:valor where email = :email";

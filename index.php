@@ -1,34 +1,7 @@
 <?php
 //Carrega a Conexão com Bando de Dados
 include_once('lib/conexao.php');
-
-//Função Lista Interessados - Busca dados da tabela de Interessados no Bando de Dados
-function lista_interessados() {
-    $conn = $GLOBALS['conn'];
-    //Selecionar os interessados do Banco de Dados        
-    $sql = "SELECT nome,email,fone FROM interessados order by nome";
-    $consulta = $conn->prepare($sql);
-    try {
-       $interessados = $consulta->execute();
-    }
-    catch(PDOException $e) {
-        echo 'ERROR: ' . $e->getMessage();
-    }   
-    echo "<table>";
-
-    $linha = "0";
-    while($r = $consulta->fetch()) {
-        echo "<tr id='l".$linha."'>";
-        echo "<td><input type='text' readonly id='n".$linha."' ondblclick='fAlterarValor(this,\"".$r["email"]."\")' value='".$r["nome"]."'></td>";
-        echo "<td><input type='text' readonly id='e".$linha."' value='".$r["email"]."'></td>";
-        echo "<td><input type='text' readonly id='f".$linha."' ondblclick='fAlterarValor(this,\"".$r["email"]."\")' value='".$r["fone"]."'></td>";
-        printf("<td><input type='button' value='D' onclick='fExcluirInteressado(\"%s\",%u)'></td>",$r["email"],$linha);
-        echo "</tr>";
-        $linha = $linha+1;
-    } 
-    echo "</table>";
-}
-
+include_once('lib/funcoes_interessados.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -40,55 +13,42 @@ function lista_interessados() {
     <title>Interessandos</title>
 </head>
 <body>
-<h1>INTERESSADOS - NewsLetter - DEVs-TI</h1>
-    <div>
-        <a href="cadastro_interessados.php">Cadastro</a>
+    <h1>INTERESSADOS - NewsLetter - DEVs-TI</h1>
+    <div id="dConteudo">
+        <h2 id="cadastro">Cadastro</h2>
+         <div id="dMsg"></div> <!-- Área para Mensagens de Validação -->
+        <div id="dInteressados">
+            <form id="fInteressados">
+                <label for="iNome">Nome:</label>
+                <input id="iNome" name="iNome" type="input" value="">
+                <br>
+                <label for="iEmail">e-mail:</label>
+                <input id="iEmail" name="iEmail" type="input" value="">
+                <br>
+                <label for="iFone">fone:</label>
+                <input id="iFone" name="iFone" type="input" value="" placeholder="(99) 99999-9999">
+                <br>
+                <label for="sEstado">Estado:</label>
+                <select id="sEstado" name="sEstado"> 
+                    <option value="00">Selecionar</option>
+                    <?php option_estados(); ?>
+                </select>
+                <br>
+                <label for="sCidade">Cidade:</label>
+                <select id="sCidade" name="sCidade">
+                    <option value="00">Selecionar</option>
+                </select>
+                <br><br>
+                <input id="bLimpar" type="reset" value="Limpar">&nbsp;|&nbsp;
+                <input id="bGravar" name="bGravar" type="button" value="Gravar">
+            </form>
+        </div>
     </div>     
-    <br>
-    <?php
-         lista_interessados();
-    ?>
+    <hr>
+    <div id="dListaInteressados"><div>
 </body>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<script language="JavaScript">
-   
-   function fAlterarValor(valor,email) 
-   {    
-      $("#"+valor.id).removeAttr("readonly"); //retira o somente leitura
-      $("#"+valor.id).attr("class","altera"); //muda o estilo
-      let campo = valor.id.slice(0,1); //seleciona a primeira letra do ID
-      
-      //criar um evento para quando for alterado um valor
-      $("#"+valor.id).change( function() {
-        let acao = "altera_valor.php?email="+email+"&valor="+$("#"+valor.id).val()+"&campo="+campo;
-        //console.log(acao);
-        //Ajax Alteração dado
-        $.get(acao, function(dados, status) {
-        //alert(dados);
-           if (status == "success") {
-               $("#"+valor.id).attr("readonly","");
-               $("#"+valor.id).removeAttr("class");
-          }
-        });  
-      });
+<script language="JavaScript" src="lib/funcoes.js"></script>
+<script language="JavaScript" src="lib/interessados.js"></script>
 
-      //Ao sair do Input retorna as propriedades
-      $("#"+valor.id).blur( function() { 
-            $("#"+valor.id).attr("readonly","");
-            $("#"+valor.id).removeAttr("class");
-        });
-
-   }
-
-   function fExcluirInteressado(email,l) {
-    let acao = "excluir_interessado.php?email="+email;
-    //Ajax para excluir o Interessado
-    $.get(acao, function(dados, status){
-        if (status == "success") {
-            $("#l"+l).remove();
-        }
-    });  
-
-   }
-</script>   
 </html>

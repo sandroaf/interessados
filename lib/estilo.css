@@ -14,3 +14,21 @@ form input {
 input.altera {
     background-color: white;
 }
+
+div#dConteudo {
+    background-color: lightgray;
+}
+
+div#dMsg {
+    height: 145px;
+    background-color: gainsboro;
+    width: 55%;
+    padding: 5px;
+    float: right;
+}
+
+div#dInteressados {
+    display: inline-block;
+    padding: 5px;
+    width: 35%;
+}

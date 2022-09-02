@@ -1,19 +1,8 @@
 <?php
 //Carrega a Conexão com Bando de Dados
 include_once('lib/conexao.php');
-?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<h1>Cadastro de Interessados News Letter</h1>
-<?php
-
+include_once('lib/funcoes_interessados.php');
+echo "<script>console.log('Entrou Ajax');</script>";
 //Validação dos dados recebidos para grava
 function fValida($valores) {
     $msg = "";
@@ -54,10 +43,9 @@ if (isset($_POST['bGravar'])) {
                     values (:email,:nome,:fone,:estado,:cidade)";
             $consulta = $conn->prepare($sql);
             //echo $sql;
-
             //Tratar exceção de erro "Duplicação de Cadastro"
             $consulta->execute($valores);
-            echo "<h2>Dados Salvos</h2>";
+            echo "<strong>Dados Salvos</strong><br>";
             echo "e-mail: ".$valores['email']."<br>";
             echo "Nome: ".$valores['nome']."<br>";
             echo "Fone: ".$valores['fone']."<br>";
@@ -67,15 +55,3 @@ if (isset($_POST['bGravar'])) {
     }
 }
 ?>
-<br>
-<!-- Volta a página de cadastro -->
-<input type="button" value="voltar" onclick="JavaScript:location.assign('/interessados');window.clearTimeout();">
-</body>
-<script language="JavaScript">
-    setTimeout(() => {
-        location.assign("/interessados");        
-    }, 5000);
-</script>
-
-</html>
-

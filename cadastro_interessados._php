@@ -1,19 +1,6 @@
 <?php
 //Carrega a Conexão com Bando de Dados
 include_once('lib/conexao.php');
-
-//Função option_estados - Carrega os estados do Banco de Dados e monta os options
-function option_estados() {
-    $conn = $GLOBALS['conn'];
-    //Selecionar os estados do Banco de Dados        
-    $sql = "SELECT Uf, Nome FROM estado";
-    $consulta = $conn->prepare($sql);
-    $estados = $consulta->execute();
-    while($r = $consulta->fetch()) {
-        echo '<option value="'.$r['Uf'].'">'.$r['Nome'].'</option>';
-    } 
-}
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
